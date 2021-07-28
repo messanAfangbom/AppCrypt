@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">AppCrypt</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Formulaire</a>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+</nav>
+
+<main class="container">
+    <div class="bg-light p-5 rounded">
+        <h1>Formulaire</h1>
+        <p class="lead">
+            Pour encrypter ou décrypter votre message, veuillez choisir le type d'opération que vous
+            voulez réaliser.
+        </p>
+    </div>
+</main>
+
+<div class="container mt-3">
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="radioEncrypt" id="radioEncrypt" checked> 
+        <label class="form-check-label" for="radioEncrypt">
+            Encrypter
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="radioDecrypt" id="radioDecrypt">
+        <label class="form-check-label" for="radioDecrypt">
+            Décrypter
+        </label>
+    </div>
+    <div class="my-3">
+        <label for="key" class="form-label">Clé de décryptage</label>
+        <input type="text" class="form-control" id="key" name="key">
+    </div>
+    <div class="my-3">
+        <label for="message" class="form-label">Texte à traiter</label>
+        <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Soumettre</button>
+    </div>
+</div>
