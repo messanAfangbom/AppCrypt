@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">AppCrypt</a>
+        <a class="navbar-brand" href="#">Logo.</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,28 +28,26 @@
     </div>
 </main>
 
-<div class="container mt-3">
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-    <label class="form-check-label" for="flexRadioDefault1">
-      Décrypter
-    </label>
+<form [formGroup]="messageForm" (submit)="action()">
+  <div class="container mt-3">
+    <div class="form-check">
+      <label class="form-check-label" controlName="decrypt">Décrypter</label>
+      <input class="form-check-input" type="radio" formControlName="decrypt" name="decrypt" id="decrypt">
+    </div>
+    <div class="form-check">
+      <label class="form-check-label" controlName="encrypt">Encrypter</label>
+      <input class="form-check-input" type="radio" formControlName="encrypt" name="encrypt" id="encrypt">
+    </div>
+      <div class="my-3">
+          <label for="key" class="form-label">Clé de décryptage</label>
+          <input type="text" class="form-control" id="key" name="key" formControlName="key">
+      </div>
+      <div class="my-3">
+          <label for="message" class="form-label">Texte à traiter</label>
+          <textarea class="form-control" id="message" name="message" rows="5" formControlName="message"></textarea>
+      </div>
+      <div>
+          <button class="btn btn-primary" type="submit">Soumettre</button>
+      </div>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-    <label class="form-check-label" for="flexRadioDefault2">
-      Encrypter
-    </label>
-  </div>
-    <div class="my-3">
-        <label for="key" class="form-label">Clé de décryptage</label>
-        <input type="text" class="form-control" id="key" name="key">
-    </div>
-    <div class="my-3">
-        <label for="message" class="form-label">Texte à traiter</label>
-        <textarea class="form-control" id="message" name="message" rows="5"></textarea>
-    </div>
-    <div>
-        <button class="btn btn-primary" type="submit">Soumettre</button>
-    </div>
-</div>
+</form>
