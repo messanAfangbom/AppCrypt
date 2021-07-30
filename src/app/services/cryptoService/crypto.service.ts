@@ -7,16 +7,34 @@ import * as CryptoJS from 'crypto-js';
 export class CryptoService {
 
   constructor() { }
-
-  public encryptWithAES(plaintext:string, key:CryptoJS.lib.WordArray)
+  
+  public encryptWithAES(plaintext:string, keys:string)
   {
-    const encrypted = CryptoJS.AES.encrypt(plaintext,key);
-    return encrypted;
+    var key = CryptoJS.enc.Utf8.parse(keys);
+    var iv = CryptoJS.enc.Utf8.parse(keys);
+    var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plaintext.toString()), key,
+    {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return encrypted.toString();
   }
 
-  public decryptWithDES(cyphertext:string,key :CryptoJS.lib.WordArray)
+  public decryptWithDES(cyphertext:string,keys :string)
   {
-    return CryptoJS.DES.decrypt(cyphertext,key);
+    var key = CryptoJS.enc.Utf8.parse(keys);
+    var iv = CryptoJS.enc.Utf8.parse(keys);
+    var decrypted = CryptoJS.AES.decrypt(cyphertext, key, {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return decrypted.toString(CryptoJS.enc.Utf8);
   }
 
   public encryptWithDES(plaintext:string, key:CryptoJS.lib.WordArray)
@@ -30,12 +48,12 @@ export class CryptoService {
     return CryptoJS.AES.decrypt(cyphertext,key);
   }
  
-  public  getAESKey() : CryptoJS.lib.WordArray
+  public  getKey() : string
   {
     const salt = CryptoJS.lib.WordArray.random(128 / 8);
     return CryptoJS.PBKDF2("Secret Passphrase", salt, {
       keySize: 128 / 32
-    });
+    }).toString();
   }
 
 }
