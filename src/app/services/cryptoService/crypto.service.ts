@@ -23,7 +23,7 @@ export class CryptoService {
     return encrypted.toString();
   }
 
-  public decryptWithDES(cyphertext:string,keys :string)
+  public decryptWithAES(cyphertext:string,keys :string)
   {
     var key = CryptoJS.enc.Utf8.parse(keys);
     var iv = CryptoJS.enc.Utf8.parse(keys);
@@ -43,7 +43,7 @@ export class CryptoService {
     return encrypted;
   }
 
-  public decryptWithAES(cyphertext:string,key :CryptoJS.lib.WordArray)
+  public decryptWithDES(cyphertext:string,key :CryptoJS.lib.WordArray)
   {
     return CryptoJS.AES.decrypt(cyphertext,key);
   }

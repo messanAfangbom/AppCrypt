@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CryptoService } from '../services/cryptoService/crypto.service';
 
 @Component({
   selector: 'app-message-form',
@@ -8,20 +9,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class MessageFormComponent implements OnInit {
 
-  cryptAction;
-  decrypt: boolean = false;
-  encrypt: boolean = false;
-  key: string;
-  message: string;
+  appCrypt;
+  key: string = null;
+  message: string = null;
   messageForm: FormGroup;
+  displayMessage: boolean = true;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private cryptoService: CryptoService) { }
 
   ngOnInit(): void {
     this.messageForm = this.fb.group({
-      cryptAction: this.cryptAction,
-      decrypt: this.decrypt,
-      encrypt: this.encrypt,
+      appCrypt: this.appCrypt,
       key: this.key,
       message: this.message,
     })
@@ -29,13 +27,27 @@ export class MessageFormComponent implements OnInit {
 
   action() {
     console.log(this.messageForm.getRawValue());
+    const value = this.getValue();
+    if(value['appCrypt'] === 'decrypt'){
+      this.displayMessage = false;
+      this.decryptAction(value['key'], value['message']);
+    }else{
+      this.encryptAction(value['message']);
+    }
+    
   }
 
-  decryptAction() {
-    console.log('decrypter');
+  getValue() {
+    return this.messageForm.value;
   }
 
-  encryptAction() {
-    console.log('encrypter');
+  decryptAction(key: string, value: string) {
+    this.message = this.cryptoService.decryptWithAES(value, key);
   }
+
+  encryptAction(message: string) {
+    this.key = this.cryptoService.getKey();
+    this.message = this.cryptoService.encryptWithAES(message, this.key);    
+  }
+
 }
