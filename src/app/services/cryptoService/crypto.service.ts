@@ -37,16 +37,64 @@ export class CryptoService {
     return decrypted.toString(CryptoJS.enc.Utf8);
   }
 
-  public encryptWithDES(plaintext:string, key:CryptoJS.lib.WordArray)
+  public encryptWithDES(plaintext:string, keys:string)
   {
-    const encrypted = CryptoJS.DES.encrypt(plaintext,key);
-    return encrypted;
+    var key = CryptoJS.enc.Utf8.parse(keys);
+    var iv = CryptoJS.enc.Utf8.parse(keys);
+    var encrypted = CryptoJS.DES.encrypt(CryptoJS.enc.Utf8.parse(plaintext.toString()), key,
+    {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return encrypted.toString();
   }
 
-  public decryptWithDES(cyphertext:string,key :CryptoJS.lib.WordArray)
+  public decryptWithDES(cyphertext:string,keys :string)
   {
-    return CryptoJS.AES.decrypt(cyphertext,key);
+    var key = CryptoJS.enc.Utf8.parse(keys);
+    var iv = CryptoJS.enc.Utf8.parse(keys);
+    var decrypted = CryptoJS.DES.decrypt(cyphertext, key, {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return decrypted.toString(CryptoJS.enc.Utf8);
   }
+
+  public encryptWithTripleDES(plaintext:string, keys:string)
+  {
+    var key = CryptoJS.enc.Utf8.parse(keys);
+    var iv = CryptoJS.enc.Utf8.parse(keys);
+    var encrypted = CryptoJS.TripleDES.encrypt(CryptoJS.enc.Utf8.parse(plaintext.toString()), key,
+    {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return encrypted.toString();
+  }
+
+  public decryptWithTripleDES(cyphertext:string,keys :string)
+  {
+    var key = CryptoJS.enc.Utf8.parse(keys);
+    var iv = CryptoJS.enc.Utf8.parse(keys);
+    var decrypted = CryptoJS.TripleDES.decrypt(cyphertext, key, {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return decrypted.toString(CryptoJS.enc.Utf8);
+  }
+ 
  
   public  getKey() : string
   {
